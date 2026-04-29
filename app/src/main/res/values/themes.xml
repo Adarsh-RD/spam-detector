@@ -1,0 +1,18 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.SpamDetection" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Brand Colors -->
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/primary_dark</item>
+
+        <item name="colorSecondary">#25D366</item> <!-- WhatsApp Green -->
+        <item name="colorOnSecondary">@color/white</item>
+
+        <item name="android:windowBackground">@color/background_dark</item>
+        <item name="android:navigationBarColor">@color/background_dark</item>
+        <item name="android:statusBarColor">@color/surface_dark</item>
+    </style>
+
+    <style name="Theme.SpamDetection" parent="Base.Theme.SpamDetection" />
+</resources>

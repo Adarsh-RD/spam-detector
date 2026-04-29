@@ -1,0 +1,6 @@
+__pycache__/
+*.py[cod]
+models/base_model.keras
+models/pending_updates.json
+models/version.txt
+.env

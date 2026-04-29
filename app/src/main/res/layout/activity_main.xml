@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_main">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#121212"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="Spam Sentinel"
+            app:titleCentered="true"
+            app:titleTextColor="@color/sentinel_blue" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/status_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_status_active"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="6dp"
+                android:text="Status: Protection Active"
+                android:textColor="@color/status_green"
+                android:textSize="13sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/button_row"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_settings"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="4dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:text="Settings"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:backgroundTint="@color/btn_settings"
+                    app:cornerRadius="12dp"
+                    app:icon="@android:drawable/ic_menu_manage"
+                    app:iconGravity="textStart"
+                    app:iconPadding="4dp"
+                    app:iconSize="14dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_train"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="2dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:text="Update AI"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:backgroundTint="@color/btn_update"
+                    app:cornerRadius="12dp"
+                    app:icon="@android:drawable/stat_notify_sync"
+                    app:iconGravity="textStart"
+                    app:iconPadding="4dp"
+                    app:iconSize="14dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_clear"
+                    style="@style/Widget.Material3.Button.TonalButton"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_weight="1"
+                    android:padding="0dp"
+                    android:text="Clear"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    app:backgroundTint="@color/btn_clear"
+                    app:cornerRadius="12dp"
+                    app:icon="@android:drawable/ic_menu_delete"
+                    app:iconGravity="textStart"
+                    app:iconPadding="4dp"
+                    app:iconSize="14dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        app:cardBackgroundColor="@color/bg_main"
+        app:cardCornerRadius="20dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:strokeColor="@color/border_grey"
+        app:strokeWidth="1dp">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_messages"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="8dp" />
+
+        <LinearLayout
+            android:id="@+id/empty_state_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:alpha="0.3"
+                android:src="@android:drawable/ic_dialog_email"
+                app:tint="@color/text_hint" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="sans-serif-condensed"
+                android:text="No messages captured."
+                android:textColor="@color/text_hint"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
