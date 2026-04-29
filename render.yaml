@@ -9,7 +9,3 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0
-    disk:
-      name: fl-model-storage
-      mountPath: /opt/render/project/src/fl_server/models
-      sizeGB: 1
