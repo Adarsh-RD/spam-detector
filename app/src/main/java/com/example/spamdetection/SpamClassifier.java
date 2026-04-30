@@ -24,9 +24,9 @@ public class SpamClassifier {
     private Interpreter tflite;
     private Map<String, Integer> vocab = new HashMap<>();
     private static final int MAX_LENGTH = 100; 
-    private static final String MODEL_FILE = "spam_model_quantized (2).tflite";
+    private static final String MODEL_FILE = "spam_model.tflite";
     public static final String UPDATED_MODEL_NAME = "updated_spam_model.tflite";
-    private static final String VOCAB_FILE = "vocab (1).json";
+    private static final String VOCAB_FILE = "vocab.json";
     private final Context context;
 
     private SpamClassifier(Context context) {
