@@ -16,6 +16,8 @@ class ModelBuilder:
 
     def _build_fresh_model(self):
         import tensorflow as tf
+        # Output: 2 classes [ham_score, spam_score] — matches Android SpamClassifier.isSpam()
+        # which reads out[0][0] (ham) and out[0][1] (spam)
         model = tf.keras.Sequential([
             tf.keras.layers.Embedding(
                 VOCAB_SIZE, EMBEDDING_DIM,
@@ -24,11 +26,11 @@ class ModelBuilder:
             tf.keras.layers.GlobalAveragePooling1D(),
             tf.keras.layers.Dense(32, activation="relu"),
             tf.keras.layers.Dropout(0.3),
-            tf.keras.layers.Dense(1, activation="sigmoid"),
+            tf.keras.layers.Dense(2, activation="softmax"),  # 2 outputs: [ham, spam]
         ])
         model.compile(
             optimizer=tf.keras.optimizers.Adam(learning_rate=0.001),
-            loss="binary_crossentropy",
+            loss="sparse_categorical_crossentropy",
             metrics=["accuracy"],
         )
         return model

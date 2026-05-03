@@ -105,6 +105,18 @@ async def get_model():
     )
 
 
+@app.delete("/reset_model")
+async def reset_model():
+    """Admin endpoint: wipes stale model files so next upload rebuilds with correct architecture."""
+    deleted = []
+    for f in [MODEL_PATH, BASE_MODEL_PATH, VERSION_FILE, UPDATES_FILE]:
+        if f.exists():
+            f.unlink()
+            deleted.append(str(f))
+    logger.info(f"Model reset: deleted {deleted}")
+    return {"status": "reset", "deleted": deleted}
+
+
 # ─── FedAvg ───────────────────────────────────────────────────────────────────
 def run_fedavg():
     """Aggregate all pending updates, fine-tune global model, export TFLite."""
@@ -122,7 +134,19 @@ def run_fedavg():
         logger.info(f"FedAvg: aggregating {len(all_features)} samples from {len(updates)} upload(s)…")
 
         X = np.array(all_features, dtype=np.int32)
-        y = np.array(all_labels,   dtype=np.float32)
+        y = np.array(all_labels,   dtype=np.int64)  # int64 for sparse_categorical_crossentropy
+
+        # Delete stale base model if output shape is wrong (1-output vs expected 2-output)
+        if BASE_MODEL_PATH.exists():
+            try:
+                import tensorflow as tf
+                tmp = tf.keras.models.load_model(str(BASE_MODEL_PATH))
+                if tmp.output_shape[-1] != 2:
+                    logger.warning("Stale model has wrong output shape — deleting and rebuilding.")
+                    BASE_MODEL_PATH.unlink()
+            except Exception as check_err:
+                logger.warning(f"Could not verify model shape, rebuilding: {check_err}")
+                BASE_MODEL_PATH.unlink(missing_ok=True)
 
         model_builder.train(X, y, MODEL_PATH)
 

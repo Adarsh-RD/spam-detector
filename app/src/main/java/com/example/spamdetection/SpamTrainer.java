@@ -44,19 +44,26 @@ public class SpamTrainer {
             return;
         }
 
+        Log.i(TAG, "=== trainLocally START ===");
+        Log.i(TAG, "Training data count: " + trainingData.size());
+        for (int i = 0; i < trainingData.size(); i++) {
+            SpamData d = trainingData.get(i);
+            Log.i(TAG, "  Sample " + i + ": label=" + d.label + ", msg=\"" + d.message.substring(0, Math.min(30, d.message.length())) + "...\"");
+        }
+
         callback.onProgress("Tokenizing " + trainingData.size() + " messages on-device…");
-        Log.i(TAG, "Starting FL upload with " + trainingData.size() + " samples.");
+        Log.i(TAG, "Calling federatedClient.uploadUpdate()...");
 
         federatedClient.uploadUpdate(trainingData, new FederatedClient.UploadCallback() {
             @Override
             public void onSuccess(String message) {
-                Log.i(TAG, "FL result: " + message);
+                Log.i(TAG, "✅ FL upload SUCCESS: " + message);
                 callback.onComplete(message);
             }
 
             @Override
             public void onError(String error) {
-                Log.e(TAG, "FL error: " + error);
+                Log.e(TAG, "❌ FL upload ERROR: " + error);
                 callback.onError(error);
             }
         });
