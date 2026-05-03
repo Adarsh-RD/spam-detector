@@ -1,5 +1,6 @@
 import numpy as np
 import logging
+import tensorflow as tf
 from pathlib import Path
 
 logger = logging.getLogger(__name__)
@@ -13,6 +14,14 @@ BASE_MODEL_PATH = Path("models/base_model.keras")
 
 class ModelBuilder:
     """Owns the Keras model lifecycle: build → fine-tune → export TFLite."""
+
+    def __init__(self, vocab_size=10000, max_len=100):
+        # Limit TF to 1 thread to prevent Render Free Tier from CPU throttling and freezing
+        tf.config.threading.set_intra_op_parallelism_threads(1)
+        tf.config.threading.set_inter_op_parallelism_threads(1)
+        
+        self.vocab_size = vocab_size
+        self.max_len = max_len
 
     def _build_fresh_model(self):
         import tensorflow as tf
@@ -62,7 +71,7 @@ class ModelBuilder:
         logger.info(f"Training on {len(X)} samples (val_split={val_split})...")
         model.fit(
             X, y,
-            epochs=25,
+            epochs=10,
             batch_size=min(32, len(X)),
             validation_split=val_split,
             verbose=1,
