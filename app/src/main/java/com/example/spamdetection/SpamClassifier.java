@@ -32,7 +32,7 @@ public class SpamClassifier {
     private final Context context;
     
     private final LruCache<String, Long> recentEvents = new LruCache<>(50); // stores timestamp of last processing
-    private static final long DEDUP_WINDOW_MS = 10_000; // 10 seconds
+    private static final long DEDUP_WINDOW_MS = 3_000; // 3 seconds
 
     private static final String[] SPAM_KEYWORDS = {
         "offer", "win", "prize", "cashback", "lucky", "urgent", "jio", "vi", "airtel", 
