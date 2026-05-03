@@ -62,7 +62,7 @@ class ModelBuilder:
         logger.info(f"Training on {len(X)} samples (val_split={val_split})...")
         model.fit(
             X, y,
-            epochs=5,
+            epochs=25,
             batch_size=min(32, len(X)),
             validation_split=val_split,
             verbose=1,

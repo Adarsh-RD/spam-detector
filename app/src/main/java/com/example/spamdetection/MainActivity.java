@@ -148,8 +148,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                     @Override
                     public void onComplete(String result) {
-                        // Clear local DB after successful upload
-                        dbExecutor.execute(() -> AppDatabase.getInstance(MainActivity.this).spamDao().deleteAll());
                         
                         runOnUiThread(() -> {
                             Toast.makeText(MainActivity.this, "✅ Uploaded! Cloud is training (45s)...", Toast.LENGTH_LONG).show();
