@@ -136,18 +136,6 @@ def run_fedavg():
         X = np.array(all_features, dtype=np.int32)
         y = np.array(all_labels,   dtype=np.int64)  # int64 for sparse_categorical_crossentropy
 
-        # Delete stale base model if output shape is wrong (1-output vs expected 2-output)
-        if BASE_MODEL_PATH.exists():
-            try:
-                import tensorflow as tf
-                tmp = tf.keras.models.load_model(str(BASE_MODEL_PATH))
-                if tmp.output_shape[-1] != 2:
-                    logger.warning("Stale model has wrong output shape — deleting and rebuilding.")
-                    BASE_MODEL_PATH.unlink()
-            except Exception as check_err:
-                logger.warning(f"Could not verify model shape, rebuilding: {check_err}")
-                BASE_MODEL_PATH.unlink(missing_ok=True)
-
         model_builder.train(X, y, MODEL_PATH)
 
         new_version = get_version() + 1

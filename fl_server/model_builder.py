@@ -38,8 +38,17 @@ class ModelBuilder:
     def _load_or_create(self):
         import tensorflow as tf
         if BASE_MODEL_PATH.exists():
-            logger.info("Loading existing Keras model for fine-tuning...")
-            return tf.keras.models.load_model(str(BASE_MODEL_PATH))
+            try:
+                model = tf.keras.models.load_model(str(BASE_MODEL_PATH))
+                if model.output_shape[-1] != 2:
+                    logger.warning("Stale model has 1-output shape — deleting and rebuilding with 2-output softmax.")
+                    BASE_MODEL_PATH.unlink()
+                    return self._build_fresh_model()
+                logger.info("Loading existing Keras model for fine-tuning...")
+                return model
+            except Exception as e:
+                logger.warning(f"Failed to load existing model ({e}), rebuilding.")
+                BASE_MODEL_PATH.unlink(missing_ok=True)
         logger.info("No existing model — building fresh architecture.")
         return self._build_fresh_model()
 
