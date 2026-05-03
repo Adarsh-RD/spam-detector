@@ -1,11 +1,17 @@
 package com.example.spamdetection;
 
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
 import android.util.Log;
+
+import androidx.core.app.NotificationCompat;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -13,20 +19,43 @@ import java.util.concurrent.Executors;
 public class SMSNotificationListener extends NotificationListenerService {
 
     private static final String TAG = "SMSNotificationListener";
+    private static final String CHANNEL_ID = "spam_shield_channel";
+    private static final int FOREGROUND_ID = 9001;
     private final ExecutorService workerExecutor = Executors.newSingleThreadExecutor();
 
     @Override
     public void onListenerConnected() {
         super.onListenerConnected();
         Log.i(TAG, "✅ Notification Listener CONNECTED");
+        startForegroundIfNeeded();
     }
 
     @Override
     public void onListenerDisconnected() {
         super.onListenerDisconnected();
         Log.w(TAG, "⚠️ Notification Listener DISCONNECTED — requesting rebind...");
-        // Request system to rebind this service (auto-heal after being killed)
-        requestRebind(new android.content.ComponentName(getPackageName(), SMSNotificationListener.class.getName()));
+        requestRebind(new ComponentName(getPackageName(), SMSNotificationListener.class.getName()));
+    }
+
+    private void startForegroundIfNeeded() {
+        // Create notification channel (required on Android 8+)
+        NotificationManager nm = getSystemService(NotificationManager.class);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel ch = new NotificationChannel(
+                    CHANNEL_ID, "Spam Shield", NotificationManager.IMPORTANCE_MIN);
+            ch.setDescription("Keeps spam protection active");
+            ch.setShowBadge(false);
+            nm.createNotificationChannel(ch);
+        }
+        Notification notif = new NotificationCompat.Builder(this, CHANNEL_ID)
+                .setContentTitle("Spam Shield Active")
+                .setContentText("Monitoring messages for spam")
+                .setSmallIcon(android.R.drawable.ic_dialog_email)
+                .setPriority(NotificationCompat.PRIORITY_MIN)
+                .setSilent(true)
+                .setOngoing(true)
+                .build();
+        startForeground(FOREGROUND_ID, notif);
     }
 
     @Override
