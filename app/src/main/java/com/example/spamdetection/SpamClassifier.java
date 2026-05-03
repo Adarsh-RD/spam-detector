@@ -31,7 +31,8 @@ public class SpamClassifier {
     private static final String VOCAB_FILE = "vocab.json";
     private final Context context;
     
-    private final LruCache<String, Boolean> recentEvents = new LruCache<>(50);
+    private final LruCache<String, Long> recentEvents = new LruCache<>(50); // stores timestamp of last processing
+    private static final long DEDUP_WINDOW_MS = 10_000; // 10 seconds
 
     private static final String[] SPAM_KEYWORDS = {
         "offer", "win", "prize", "cashback", "lucky", "urgent", "jio", "vi", "airtel", 
@@ -54,7 +55,9 @@ public class SpamClassifier {
         if (content == null) return false;
         String key = (sender + "|" + content).trim().toLowerCase();
         synchronized (recentEvents) {
-            return recentEvents.get(key) != null;
+            Long lastTime = recentEvents.get(key);
+            // Only consider it a duplicate if processed within last 10 seconds
+            return lastTime != null && (System.currentTimeMillis() - lastTime) < DEDUP_WINDOW_MS;
         }
     }
 
@@ -62,7 +65,7 @@ public class SpamClassifier {
         if (content == null) return;
         String key = (sender + "|" + content).trim().toLowerCase();
         synchronized (recentEvents) {
-            recentEvents.put(key, true);
+            recentEvents.put(key, System.currentTimeMillis());
         }
     }
 
