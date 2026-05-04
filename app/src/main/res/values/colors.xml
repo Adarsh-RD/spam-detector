@@ -2,24 +2,24 @@
 <resources>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-
-    <!-- Brand Colors -->
-    <color name="primary">#0084FF</color>
-    <color name="primary_dark">#0073E6</color>
-    <color name="background_dark">#000000</color>
-    <color name="surface_dark">#121212</color>
-
-    <!-- Theme Colors from Image -->
-    <color name="sentinel_blue">#4A90E2</color>
-    <color name="status_green">#25D366</color>
-    <color name="status_green_glow">#2025D366</color>
-
-    <color name="btn_settings">#4A4458</color>
-    <color name="btn_update">#3B5998</color>
-    <color name="btn_clear">#8B3A3A</color>
-
-    <color name="bg_main">#0F0F12</color>
-    <color name="card_bg_developed">#1A1A1C</color>
-    <color name="border_grey">#333333</color>
-    <color name="text_hint">#757575</color>
+    
+    <!-- Premium Cyber/AI Theme -->
+    <color name="bg_main">#0B0F19</color>
+    <color name="surface_dark">#151A28</color>
+    <color name="surface_lighter">#1E2538</color>
+    
+    <color name="accent_cyan">#00E5FF</color>
+    <color name="accent_purple">#B388FF</color>
+    
+    <color name="spam_red">#FF4B4B</color>
+    <color name="spam_red_trans">#20FF4B4B</color>
+    <color name="ham_green">#00E676</color>
+    <color name="ham_green_trans">#2000E676</color>
+    
+    <color name="text_primary">#F8FAFC</color>
+    <color name="text_secondary">#94A3B8</color>
+    <color name="text_tertiary">#64748B</color>
+    
+    <color name="border_color">#2A3441</color>
+    <color name="border_highlight">#3B4B5E</color>
 </resources>
