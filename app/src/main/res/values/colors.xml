@@ -3,13 +3,15 @@
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
     
-    <!-- Premium Cyber/AI Theme -->
-    <color name="bg_main">#0B0F19</color>
-    <color name="surface_dark">#151A28</color>
-    <color name="surface_lighter">#1E2538</color>
+    <!-- Cobra Theme -->
+    <color name="bg_main">#0A0A0A</color>
     
-    <color name="accent_cyan">#00E5FF</color>
-    <color name="accent_purple">#B388FF</color>
+    <!-- Glassmorphism Card -->
+    <color name="glass_bg">#2A2A2A</color>
+    <color name="glass_bg_trans">#4D2A2A2A</color>
+    
+    <color name="accent_cobra">#FF4A5A</color>
+    <color name="accent_cobra_dark">#B33340</color>
     
     <color name="spam_red">#FF4B4B</color>
     <color name="spam_red_trans">#20FF4B4B</color>
@@ -18,8 +20,7 @@
     
     <color name="text_primary">#F8FAFC</color>
     <color name="text_secondary">#94A3B8</color>
-    <color name="text_tertiary">#64748B</color>
+    <color name="text_dark">#121212</color>
     
     <color name="border_color">#2A3441</color>
-    <color name="border_highlight">#3B4B5E</color>
 </resources>
