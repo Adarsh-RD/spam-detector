@@ -2,16 +2,16 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.SpamDetection" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Brand Colors -->
-        <item name="colorPrimary">@color/accent_cyan</item>
-        <item name="colorOnPrimary">@color/bg_main</item>
-        <item name="colorPrimaryContainer">@color/accent_purple</item>
+        <item name="colorPrimary">@color/accent_cobra</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorPrimaryContainer">@color/accent_cobra_dark</item>
 
         <item name="colorSecondary">@color/ham_green</item>
         <item name="colorOnSecondary">@color/white</item>
 
         <item name="android:windowBackground">@color/bg_main</item>
         <item name="android:navigationBarColor">@color/bg_main</item>
-        <item name="android:statusBarColor">@color/surface_dark</item>
+        <item name="android:statusBarColor">@color/glass_bg</item>
     </style>
 
     <style name="Theme.SpamDetection" parent="Base.Theme.SpamDetection" />
