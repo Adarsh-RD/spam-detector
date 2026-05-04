@@ -12,6 +12,7 @@
         <item name="android:windowBackground">@color/bg_main</item>
         <item name="android:navigationBarColor">@color/bg_main</item>
         <item name="android:statusBarColor">@color/glass_bg</item>
+        <item name="android:fontFamily">@font/poppins</item>
     </style>
 
     <style name="Theme.SpamDetection" parent="Base.Theme.SpamDetection" />
